@@ -13,6 +13,7 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Book::factory()->count(150)->create();
+
     }
 }
