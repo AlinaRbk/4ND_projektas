@@ -1,8 +1,12 @@
 <?php
 
 namespace Database\Seeders;
+use App\Models\ProductCategory;
+
 
 use Illuminate\Database\Seeder;
+
+
 
 class ProductCategorySeeder extends Seeder
 {
@@ -13,7 +17,7 @@ class ProductCategorySeeder extends Seeder
      */
     public function run()
     {
-        ProductCaregory::factory()->count(3)->create();
+        ProductCategory::factory()->count(3)->create();
 
     }
 }
