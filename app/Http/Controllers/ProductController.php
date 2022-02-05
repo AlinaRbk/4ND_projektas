@@ -76,7 +76,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $select_values = Product::all();
+        return view('product.edit', ['product' => $product, 'select_values' => $select_values]);
     }
 
     /**
@@ -86,9 +87,18 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(Request $request, Product $product)
     {
-        //
+        $product->title = $request->product_title;
+        $product->description = $request->product_description;
+        $product->price = $request->product_price;
+        $product->category_id = $request->product_category_id;
+        $product->image_url = $request->product_image_url;
+
+
+        $product->save();
+
+        return redirect()->route('product.index');
     }
 
     /**

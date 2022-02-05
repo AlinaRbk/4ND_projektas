@@ -70,7 +70,7 @@ class ProductCategoryController extends Controller
      */
     public function edit(ProductCategory $productCategory)
     {
-        //
+        return redirect()->route('productcategory.index');
     }
 
     /**
@@ -80,9 +80,15 @@ class ProductCategoryController extends Controller
      * @param  \App\Models\ProductCategory  $productCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductCategoryRequest $request, ProductCategory $productCategory)
+    public function update(Request $request, ProductCategory $productCategory)
     {
-        //
+        $productcategory->title = $request->productCategory_title;
+        $productcategory->description = $request->productCategory_description;
+
+
+        $productcategory->save();
+
+        return redirect()->route('productcategory.index');
     }
 
     /**
