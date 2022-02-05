@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -15,7 +17,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        
+        $products = Product::all()->sortBy('category_title', SORT_REGULAR, false );
         return view('product.index', ['products' => $products]);
         
     }
@@ -27,7 +30,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $select_values = ProductCategory::all();
+        return view('product.create', ['select_values' => $select_values]);
     }
 
     /**
@@ -36,9 +40,21 @@ class ProductController extends Controller
      * @param  \App\Http\Requests\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request)
+    public function store(Request $request)
     {
-        //
+        $product = new Product;
+
+        $product->title = $request->product_title;
+        $product->description = $request->product_description;
+        $product->price = $request->product_price;
+        $product->category_id = $request->product_category_id;
+        $product->image_url = $request->product_image_url;
+
+
+
+        $product->save();
+
+        return redirect()->route('product.index');
     }
 
     /**

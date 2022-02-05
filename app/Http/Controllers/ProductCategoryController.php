@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ProductCategory;
 use App\Http\Requests\StoreProductCategoryRequest;
 use App\Http\Requests\UpdateProductCategoryRequest;
+use Illuminate\Http\Request;
+
 
 class ProductCategoryController extends Controller
 {
@@ -26,7 +28,7 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('productcategory.create');
     }
 
     /**
@@ -35,10 +37,19 @@ class ProductCategoryController extends Controller
      * @param  \App\Http\Requests\StoreProductCategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductCategoryRequest $request)
+    public function store(Request $request)
     {
-        //
+        $productcategory = new ProductCategory;
+
+        $productcategory->title = $request->productCategory_title;
+        $productcategory->description = $request->productCategory_description;
+
+
+        $productcategory->save();
+
+        return redirect()->route('productcategory.index');
     }
+    
 
     /**
      * Display the specified resource.
