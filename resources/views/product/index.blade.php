@@ -8,8 +8,17 @@
 <form method="GET" action="{{route('product.index')}}">
         @csrf
     <select name="sortCollumn">
-    <option value="category_id">Category</option>
-    
+    <!-- <option value="category_id">Category</option> -->
+    @foreach ($select_array as $key=>$item)
+    {{$key}}
+                @if($item == $sortCollumn || ($key == 0 && empty($sortCollumn)) )
+                    <option value="{{$item}}" selected>{{$item}}</option>
+                @else 
+                <option value="{{$item}}" >{{$item}}</option>
+                @endif
+                
+            @endforeach
+
     </select>   
     <select name="sortOrder">
             @if ($sortOrder == 'asc' || empty($sortOrder))
