@@ -68,9 +68,10 @@ class ProductCategoryController extends Controller
      * @param  \App\Models\ProductCategory  $productCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductCategory $productCategory)
+    public function edit(Productcategory $productcategory)
     {
-        return redirect()->route('productcategory.index');
+        $select_values = Productcategory::all();
+        return view('productcategory.edit', ['productcategory' => $productcategory, 'select_values' => $select_values]);
     }
 
     /**
@@ -80,10 +81,10 @@ class ProductCategoryController extends Controller
      * @param  \App\Models\ProductCategory  $productCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductCategory $productCategory)
+    public function update(Request $request, Productcategory $productcategory)
     {
-        $productcategory->title = $request->productCategory_title;
-        $productcategory->description = $request->productCategory_description;
+        $productcategory->title = $request->productcategory_title;
+        $productcategory->description = $request->productcategory_description;
 
 
         $productcategory->save();

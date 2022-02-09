@@ -88,7 +88,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return redirect()->route('product.index');
+        $select_values = Product::all();
+        return view('product.edit', ['product' => $product, 'select_values' => $select_values]);
     }
 
     /**
