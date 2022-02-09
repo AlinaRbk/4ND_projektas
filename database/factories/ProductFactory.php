@@ -19,8 +19,8 @@ class ProductFactory extends Factory
             'price'=> rand(1,100),
             //nes sukuri tik tris kategorijas, category_id negali buti didesnis uz 3
             'category_id'=> rand (1,3),
-            'image_url' => $this->faker->imageUrl()
-
+            'image_url' => $this->faker->imageUrl(),
+            'category_title'=>$this->faker->firstname()
         ];
     }
 }

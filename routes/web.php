@@ -27,15 +27,19 @@ Route::prefix('products')->group(function() {
     Route::get('edit/{product}', 'App\Http\Controllers\ProductController@edit')->name('product.edit');
     Route::post('store', 'App\Http\Controllers\ProductController@store')->name('product.store');
     Route::post('update/{product}', 'App\Http\Controllers\ProductController@update')->name('product.update');
+    //Route::post('destroy/{product}', 'App\Http\Controllers\ProductController@destroy')->name('product.destroy');
+
 
 
 });
 Route::prefix('productCategories')->group(function() {
     Route::get('', 'App\Http\Controllers\ProductCategoryController@index')->name('productcategory.index');
     Route::get('create', 'App\Http\Controllers\ProductCategoryController@create')->name('productcategory.create');
-    Route::get('edit{productCategory}', 'App\Http\Controllers\ProductCategoryController@edit')->name('productcategory.edit');
+    Route::get('edit{productcategory}', 'App\Http\Controllers\ProductCategoryController@edit')->name('productcategory.edit');
     Route::post('store', 'App\Http\Controllers\ProductCategoryController@store')->name('productcategory.store');
-    Route::post('update/{productCategory}', 'App\Http\Controllers\ProductcategoryController@update')->name('productcategory.update');
+    Route::post('update/{productcategory}', 'App\Http\Controllers\ProductcategoryController@update')->name('productcategory.update');
+    //Route::post('destroy/{productcategory}', 'App\Http\Controllers\ProductcategoryController@destroy')->name('productcategory.destroy');
+
 
 
 

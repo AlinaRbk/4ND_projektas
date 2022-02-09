@@ -99,6 +99,6 @@ class ProductCategoryController extends Controller
      */
     public function destroy(ProductCategory $productCategory)
     {
-        //
+        return redirect()->route('productcategory.index');
     }
 }

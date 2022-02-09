@@ -4,9 +4,32 @@
 
 <div class="container">
 
-
-
 <a class="btn btn-primary" href="{{route('product.create')}}">Create new Product</a>
+<form method="GET" action="{{route('product.index')}}">
+        @csrf
+    <select name="sortCollumn">
+    <option value="category_id">Category</option>
+    
+    </select>   
+    <select name="sortOrder">
+            @if ($sortOrder == 'asc' || empty($sortOrder))
+                <option value="asc" selected>Ascending</option>
+                <option value="desc">Descending</option>
+            @else 
+                <option value="asc">Ascending</option>
+                <option value="desc" selected>Descending</option>
+            @endif
+        </select>    
+        <button type="submit">Sort</button>
+    </form>
+    <div class="test">
+        {{$sortCollumn}}
+        {{$sortOrder}}
+    </div>
+</div>
+
+
+
 <table class="table table-striped">
         <tr>
             <th>ID</th>
@@ -28,13 +51,17 @@
             <td><img src='{{$product->image_url}}' width="100" height="100"/></td>
             <td>{{$product->productCategory->id}}</td> 
             <td>{{$product->productCategory->title}}</td> 
-                <td>
-                    <a class="btn btn-primary" href="{{route('product.edit', [$product])}}">Edit</a>
-                </td>   
+            <td>
+                <a class="btn btn-primary" href="{{route('product.edit', [$product])}}">Edit</a>
+            
+            </td>
+                   
         </tr> 
         @endforeach
      
     </table>
 </div> 
+
+
 
 @endsection

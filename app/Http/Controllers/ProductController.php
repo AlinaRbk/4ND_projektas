@@ -15,12 +15,23 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         
-        $products = Product::all()->sortBy('category_title', SORT_REGULAR, false );
-        return view('product.index', ['products' => $products]);
-        
+        // $products = Product::all()->sortBy('category_id', SORT_REGULAR,false );
+        // return view('product.index', ['products' => $products]);
+        $sortCollumn = $request->sortCollumn;
+        $sortOrder = $request->sortOrder; 
+
+        if(empty($sortCollumn) || empty($sortOrder)) {
+            $products = Product::all();
+        } else {
+            $products = Product::orderBy($sortCollumn, $sortOrder )->get();
+        }   
+
+        $select_array =  array_keys($products->first()->getAttributes());
+        return view('product.index', ['products' => $products, 'sortCollumn' =>$sortCollumn, 'sortOrder'=> $sortOrder, 'select_array' => $select_array,  ]);
+
     }
 
     /**
@@ -47,6 +58,7 @@ class ProductController extends Controller
         $product->title = $request->product_title;
         $product->description = $request->product_description;
         $product->price = $request->product_price;
+        $product->category_title = $request->product_category_title;
         $product->category_id = $request->product_category_id;
         $product->image_url = $request->product_image_url;
 
@@ -76,8 +88,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $select_values = Product::all();
-        return view('product.edit', ['product' => $product, 'select_values' => $select_values]);
+        return redirect()->route('product.index');
     }
 
     /**
@@ -92,6 +103,7 @@ class ProductController extends Controller
         $product->title = $request->product_title;
         $product->description = $request->product_description;
         $product->price = $request->product_price;
+        $product->category_title = $request->product_category_title;
         $product->category_id = $request->product_category_id;
         $product->image_url = $request->product_image_url;
 
@@ -109,6 +121,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        return redirect()->route('product.index');
     }
 }
