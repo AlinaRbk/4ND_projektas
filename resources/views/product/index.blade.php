@@ -10,32 +10,36 @@
     <select name="sortCollumn">
     <!-- <option value="category_id">Category</option> -->
     @foreach ($select_array as $key=>$item)
-    {{$key}}
-                @if($item == $sortCollumn || ($key == 0 && empty($sortCollumn)) )
-                    <option value="{{$item}}" selected>{{$item}}</option>
-                @else 
-                <option value="{{$item}}" >{{$item}}</option>
-                @endif
+        @if($item == $sortCollumn || ($key == 0 && empty($sortCollumn)) )
+            <option value="{{$item}}" selected>{{$item}}</option>
+        @else 
+         <option value="{{$item}}" >{{$item}}</option>
+        @endif
                 
-            @endforeach
+     @endforeach
 
     </select>   
     <select name="sortOrder">
-            @if ($sortOrder == 'asc' || empty($sortOrder))
-                <option value="asc" selected>Ascending</option>
-                <option value="desc">Descending</option>
-            @else 
-                <option value="asc">Ascending</option>
-                <option value="desc" selected>Descending</option>
-            @endif
-        </select>    
+        @if ($sortOrder == 'asc' || empty($sortOrder))
+            <option value="asc" selected>Ascending</option>
+            <option value="desc">Descending</option>
+        @else 
+            <option value="asc">Ascending</option>
+            <option value="desc" selected>Descending</option>
+        @endif
+    </select>    
         <button type="submit">Sort</button>
     </form>
-    <div class="test">
-        {{$sortCollumn}}
-        {{$sortOrder}}
-    </div>
-</div>
+    
+    <form method="GET" action="{{route('product.productfilter')}}">
+        @csrf
+    <select name="category_name">
+    @foreach ($productcategories as $productcategory)
+            <option value="{{$productcategory->title}}">{{$productcategory->title}}</option>
+        @endforeach
+    </select>
+    <button type="submit">Filter</button>
+    </form>    
 
 
 

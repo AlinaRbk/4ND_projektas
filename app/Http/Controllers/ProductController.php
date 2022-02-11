@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\ProductCategory;
+use App\Models\Productcategory;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
@@ -20,17 +20,26 @@ class ProductController extends Controller
         
         // $products = Product::all()->sortBy('category_id', SORT_REGULAR,false );
         // return view('product.index', ['products' => $products]);
+        $productcategories = Productcategory::orderBy('title', 'asc' )->get();
         $sortCollumn = $request->sortCollumn;
         $sortOrder = $request->sortOrder; 
 
         if(empty($sortCollumn) || empty($sortOrder)) {
             $products = Product::all();
         } else {
+            if($sortCollumn == "productcategory_title") {
+                $sortBool = true;
+                
+                if($sortOrder == "asc"){
+                    $sortBool = false;
+                }
+        } else {
             $products = Product::orderBy($sortCollumn, $sortOrder )->get();
         }   
+    }
 
         $select_array =  array_keys($products->first()->getAttributes());
-        return view('product.index', ['products' => $products, 'sortCollumn' =>$sortCollumn, 'sortOrder'=> $sortOrder, 'select_array' => $select_array,  ]);
+        return view('product.index', ['products' => $products, 'productcategories'=>$productcategories,'sortCollumn' =>$sortCollumn, 'sortOrder'=> $sortOrder, 'select_array' => $select_array,  ]);
 
     }
 
@@ -123,5 +132,12 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         return redirect()->route('product.index');
+    }
+
+    public function productfilter(Request $request) {
+
+        $productcategory_title = $request->productcategory_title;
+        $products = product::where('productcategory_title', '=' , $productcategory_title)->get();
+        return view('product.productfilter', ['products' =>$products]);
     }
 }

@@ -28,6 +28,8 @@ Route::prefix('products')->group(function() {
     Route::post('store', 'App\Http\Controllers\ProductController@store')->name('product.store');
     Route::post('update/{product}', 'App\Http\Controllers\ProductController@update')->name('product.update');
     //Route::post('destroy/{product}', 'App\Http\Controllers\ProductController@destroy')->name('product.destroy');
+    Route::get('productfilter', 'App\Http\Controllers\ProductController@productfilter')->name('product.productfilter');
+
 
 
 
